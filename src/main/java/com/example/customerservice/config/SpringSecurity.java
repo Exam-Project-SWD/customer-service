@@ -19,6 +19,7 @@ public class SpringSecurity {
         http
                 .csrf().disable()
                 .authorizeRequests()
+                //TODO: token based auth
                 .anyRequest().permitAll()
                 .and()
                 .httpBasic(Customizer.withDefaults());

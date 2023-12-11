@@ -4,11 +4,13 @@ import com.example.customerservice.model.dto.CartDTO;
 import com.example.customerservice.model.entity.Cart;
 import com.example.customerservice.model.entity.Item;
 import com.example.customerservice.service.CartService;
+import com.example.customerservice.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Slf4j
@@ -17,7 +19,12 @@ import java.util.Set;
 @RequestMapping(path = "/cart")
 public class CartController {
     private final CartService cartService;
+    private final ItemService itemService;
 
+    @GetMapping("/menu")
+    public ResponseEntity<List<Item>> getAllMenus() {
+        return ResponseEntity.ok(itemService.getAllMenus());
+    }
 
 
     @PostMapping("/add-items")

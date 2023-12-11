@@ -5,6 +5,7 @@ import com.example.customerservice.model.dto.CartDTO;
 import com.example.customerservice.model.entity.Cart;
 import com.example.customerservice.model.entity.CartItem;
 import com.example.customerservice.model.entity.Item;
+import com.example.customerservice.repository.CartItemRepository;
 import com.example.customerservice.repository.CartRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import java.util.Set;
 @Service
 public class CartService {
     private final CartRepository cartRepository;
+    private final CartItemRepository cartItemRepository;
     private final KafkaListeners kafkaListener;
 
     public CartDTO addItemToCart(int customerId, Cart cart) {
@@ -26,14 +28,15 @@ public class CartService {
         //TODO: calc total price
         newCustomerCart.setTotalPrice(10.5);
 
-        //get menu from restaurant service
-//        newCustomerCart.getItems().clear();
-//
-//        for (CartItem item : cart.getItems()) {
-//            newCustomerCart.getItems().add(item);
-//        }
+        newCustomerCart.getItems().clear();
+
+        for (CartItem item : cart.getItems()) {
+            newCustomerCart.getItems().add(item);
+            cartItemRepository.save(item);
+        }
 
         CartDTO cartDTO = new CartDTO(cartRepository.save(newCustomerCart));
+        cartDTO
 
         return cartDTO;
     }
