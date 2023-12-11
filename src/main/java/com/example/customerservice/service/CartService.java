@@ -36,7 +36,6 @@ public class CartService {
         }
 
         CartDTO cartDTO = new CartDTO(cartRepository.save(newCustomerCart));
-        cartDTO
 
         return cartDTO;
     }
