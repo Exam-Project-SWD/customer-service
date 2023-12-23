@@ -19,16 +19,16 @@ public class Cart {
     private int id;
     @Column(name = "customer_id", unique = true, nullable = false)
     private int customerId;
-    @Column(name = "restaurant_id", unique = true, nullable = false)
+    @Column(name = "restaurant_id")
     private int restaurantId;
     @Column(name = "total_price")
     private double totalPrice;
     @Column(name = "delivery")
-    private boolean withDelivery;
+    private boolean withDelivery = true;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
-            name = "cart_cartItems",
+            name = "cart_items",
             joinColumns = {@JoinColumn(name = "cart_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "cart_item_id", referencedColumnName = "id")})
     private List<CartItem> items = new ArrayList<>();

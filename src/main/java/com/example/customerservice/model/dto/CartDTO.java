@@ -21,13 +21,14 @@ public class CartDTO {
     public CartDTO(Cart cart) {
         this.customerId = cart.getCustomerId();
         this.restaurantId = cart.getRestaurantId();
-//        this.items = cart.getItems()
-//                .stream()
-//                .map(item -> CartItemDTO.builder()
-//                        .menuItemId(item.getMenuItemId())
-//                        .quantity(item.getQuantity())
-//                        .build())
-//                .toList();
+        this.items = cart.getItems()
+                .stream()
+                .map(item -> CartItemDTO.builder()
+                        .menuItemId(item.getMenuItemId())
+                        .quantity(item.getQuantity())
+                        .build())
+                .toList();
         this.totalPrice = cart.getTotalPrice();
+        this.withDelivery = cart.isWithDelivery();
     }
 }

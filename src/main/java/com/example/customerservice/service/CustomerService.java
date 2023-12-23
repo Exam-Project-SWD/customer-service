@@ -3,8 +3,10 @@ package com.example.customerservice.service;
 import com.example.customerservice.model.CustomerRegistrationRequest;
 import com.example.customerservice.model.LoginRequest;
 import com.example.customerservice.model.dto.CustomerDTO;
+import com.example.customerservice.model.entity.Address;
 import com.example.customerservice.model.entity.Customer;
 import com.example.customerservice.model.entity.Role;
+import com.example.customerservice.repository.AddressRepository;
 import com.example.customerservice.repository.CustomerRepository;
 import com.example.customerservice.util.JwtToken;
 import lombok.RequiredArgsConstructor;
@@ -21,19 +23,27 @@ import java.util.Map;
 @Service
 public class CustomerService {
     private final CustomerRepository customerRepository;
+    private final AddressRepository addressRepository;
     private final PasswordEncoder encoder = new BCryptPasswordEncoder();
     private final JwtToken jwtToken;
 
 
     public CustomerDTO registerCustomer(CustomerRegistrationRequest request) {
-        //TODO: gRPC call to address service to find addressId
+
+        Address address = Address.builder()
+                .street(request.address().getStreet())
+                .number(request.address().getNumber())
+                .postalCode(request.address().getPostalCode())
+                .build();
+
+        Address newAddress = addressRepository.save(address);
 
         Customer customer = Customer.builder()
                 .firstName(request.firstName())
                 .lastName(request.lastName())
                 .email(request.email())
                 .phone(request.phone())
-                .addressId(request.addressId())
+                .addressId(newAddress.getId())
                 .roles(List.of(Role.builder()
                         .name("customer")
                         .build()))
