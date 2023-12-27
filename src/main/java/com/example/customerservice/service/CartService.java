@@ -18,6 +18,7 @@ public class CartService {
     private final CartRepository cartRepository;
     private final CartItemRepository cartItemRepository;
     private final ItemRepository itemRepository;
+    private final KafkaService kafkaService;
 
     public CartDTO addItemToCart(int customerId, Cart cart) {
         cart.setCustomerId(customerId);
@@ -36,7 +37,12 @@ public class CartService {
         CartDTO cartDTO = new CartDTO(cartRepository.save(newCustomerCart));
 
         return cartDTO;
+    }
 
+
+    //TODO: This should be done by some kind of payment service insted
+    public void payment(int customerId, int restaurantId) {
+        kafkaService.sendCart(customerId, restaurantId);
     }
 
     private Cart findCartForCustomer(Cart cart) {
