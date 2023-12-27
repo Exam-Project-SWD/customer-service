@@ -32,4 +32,10 @@ public class CartController {
         //TODO: Get id from header when customer is authorized
         return ResponseEntity.ok(cartService.addItemToCart(id, cart));
     }
+
+    @GetMapping("/checkout")
+    public ResponseEntity<String> payCart(@RequestParam("customerId") int customerId, @RequestParam("restaurantId") int restaurantId) {
+        cartService.payment(customerId, restaurantId);
+        return ResponseEntity.ok("Payment was successful");
+    }
 }
