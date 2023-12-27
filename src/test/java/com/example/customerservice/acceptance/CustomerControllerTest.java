@@ -4,6 +4,7 @@ import com.example.customerservice.controller.CustomerController;
 import com.example.customerservice.model.CustomerRegistrationRequest;
 import com.example.customerservice.model.LoginRequest;
 import com.example.customerservice.model.dto.CustomerDTO;
+import com.example.customerservice.model.entity.Address;
 import com.example.customerservice.model.entity.Customer;
 import com.example.customerservice.service.CustomerService;
 import org.junit.jupiter.api.Test;
@@ -47,7 +48,11 @@ public class CustomerControllerTest {
                 "mathias",
                 "jensen",
                 "mj@gmail.com",
-                1,
+                Address.builder()
+                        .street("test street")
+                        .number("42")
+                        .postalCode(1234)
+                        .build(),
                 "12345678",
                 "password"
         ));
