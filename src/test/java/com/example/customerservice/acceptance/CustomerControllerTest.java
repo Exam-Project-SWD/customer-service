@@ -4,6 +4,7 @@ import com.example.customerservice.controller.CustomerController;
 import com.example.customerservice.model.CustomerRegistrationRequest;
 import com.example.customerservice.model.LoginRequest;
 import com.example.customerservice.model.dto.CustomerDTO;
+import com.example.customerservice.model.entity.Address;
 import com.example.customerservice.model.entity.Customer;
 import com.example.customerservice.service.CustomerService;
 import org.junit.jupiter.api.Test;
@@ -30,6 +31,7 @@ public class CustomerControllerTest {
     @InjectMocks
     private CustomerController customerController;
 
+<<<<<<< HEAD
 //    @Test
 //    void registerCustomer_ValidRequest_Success() {
 //        // Mocking
@@ -56,6 +58,38 @@ public class CustomerControllerTest {
 //        assertEquals(HttpStatus.OK, response.getStatusCode());
 //        assertNotNull(response.getBody());
 //    }
+=======
+    @Test
+    void registerCustomer_ValidRequest_Success() {
+        // Mocking
+        when(customerService.registerCustomer(any(CustomerRegistrationRequest.class)))
+                .thenReturn(CustomerDTO.builder()
+                        .firstName("mathias")
+                        .lastName("jensen")
+                        .email("mj@gmail.com")
+                        .phone("12345678")
+                        .addressId(1)
+                        .password("password")
+                        .build());
+        // Test
+        ResponseEntity<CustomerDTO> response = customerController.registerCustomer(new CustomerRegistrationRequest(
+                "mathias",
+                "jensen",
+                "mj@gmail.com",
+                Address.builder()
+                        .street("test street")
+                        .number("42")
+                        .postalCode(1234)
+                        .build(),
+                "12345678",
+                "password"
+        ));
+
+        // Assertions
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody());
+    }
+>>>>>>> 0adad426c5080f3f054169d7ca52ee206a6c9b5c
 
     @Test
     void login_ValidRequest_Success() throws Exception {
