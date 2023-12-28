@@ -1,6 +1,5 @@
 package com.example.customerservice.config;
 
-import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,9 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-@RequiredArgsConstructor
 public class KafkaProducerConfig {
-
     @Value("${spring.kafka.bootstrap-servers}")
     private String bootstrapServers;
 
@@ -32,7 +29,7 @@ public class KafkaProducerConfig {
     }
 
     @Bean
-    public ProducerFactory<String, Object> producerFactory() {
+    public DefaultKafkaProducerFactory<String, Object> producerFactory() {
         return new DefaultKafkaProducerFactory<>(producerConfig());
     }
 

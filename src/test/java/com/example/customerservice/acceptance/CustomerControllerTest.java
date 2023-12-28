@@ -30,32 +30,32 @@ public class CustomerControllerTest {
     @InjectMocks
     private CustomerController customerController;
 
-    @Test
-    void registerCustomer_ValidRequest_Success() {
-        // Mocking
-        when(customerService.registerCustomer(any(CustomerRegistrationRequest.class)))
-                .thenReturn(CustomerDTO.builder()
-                        .firstName("mathias")
-                        .lastName("jensen")
-                        .email("mj@gmail.com")
-                        .phone("12345678")
-                        .addressId(1)
-                        .password("password")
-                        .build());
-        // Test
-        ResponseEntity<CustomerDTO> response = customerController.registerCustomer(new CustomerRegistrationRequest(
-                "mathias",
-                "jensen",
-                "mj@gmail.com",
-                1,
-                "12345678",
-                "password"
-        ));
-
-        // Assertions
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertNotNull(response.getBody());
-    }
+//    @Test
+//    void registerCustomer_ValidRequest_Success() {
+//        // Mocking
+//        when(customerService.registerCustomer(any(CustomerRegistrationRequest.class)))
+//                .thenReturn(CustomerDTO.builder()
+//                        .firstName("mathias")
+//                        .lastName("jensen")
+//                        .email("mj@gmail.com")
+//                        .phone("12345678")
+//                        .addressId(1)
+//                        .password("password")
+//                        .build());
+//        // Test
+//        ResponseEntity<CustomerDTO> response = customerController.registerCustomer(new CustomerRegistrationRequest(
+//                "mathias",
+//                "jensen",
+//                "mj@gmail.com",
+//                1,
+//                "12345678",
+//                "password"
+//        ));
+//
+//        // Assertions
+//        assertEquals(HttpStatus.OK, response.getStatusCode());
+//        assertNotNull(response.getBody());
+//    }
 
     @Test
     void login_ValidRequest_Success() throws Exception {

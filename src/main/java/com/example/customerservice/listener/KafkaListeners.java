@@ -19,21 +19,21 @@ public class KafkaListeners {
     private final ItemRepository itemRepository;
     private static final Logger LOGGER = LoggerFactory.getLogger(KafkaListeners.class);
 
-    @KafkaListener(
-            topics = "RESTAURANT_MENU",
-            groupId = "restaurant-menu-id"
-    )
-    public void consumeRestaurantMenu(List<Set<Item>> menus) {
-
-        //gem consumed data
-        //menus.forEach(System.out::println);
-        for (Set<Item> i: menus
-             ) {
-            System.out.println(i);
-        }
-
-
-        System.out.println("consumed: "+ menus);
-        //LOGGER.debug("&&& Message [{}] consumed", menus);
-    }
+//    @KafkaListener(
+//            topics = "RESTAURANT_MENU",
+//            groupId = "restaurant-menu-id"
+//    )
+//    public void consumeRestaurantMenu(List<Set<Item>> menus) {
+//
+//        //gem consumed data
+//        //menus.forEach(System.out::println);
+//        for (Set<Item> i: menus
+//             ) {
+//            System.out.println(i);
+//        }
+//
+//
+//        System.out.println("consumed: "+ menus);
+//        //LOGGER.debug("&&& Message [{}] consumed", menus);
+//    }
 }

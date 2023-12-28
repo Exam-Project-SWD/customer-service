@@ -17,7 +17,7 @@ public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "customer_id", unique = true, nullable = false)
+    @Column(name = "customer_id")
     private int customerId;
     @Column(name = "restaurant_id")
     private int restaurantId;

@@ -41,8 +41,8 @@ public class CartService {
 
 
     //TODO: This should be done by some kind of payment service insted
-    public void payment(int customerId, int restaurantId) {
-        kafkaService.sendCart(customerId, restaurantId);
+    public String payment(int customerId, int restaurantId) {
+        return kafkaService.sendCart(customerId, restaurantId);
     }
 
     private Cart findCartForCustomer(Cart cart) {

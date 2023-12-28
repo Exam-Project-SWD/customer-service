@@ -8,10 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
-
-
 @RequiredArgsConstructor
 @Service
 public class KafkaService {
@@ -24,7 +20,6 @@ public class KafkaService {
         Cart cart = cartRepository.findByCustomerIdAndRestaurantId(customerId, restaurantId);
 
         kafkaTemplate.send(Topic.NEW_ORDER_PLACED.toString(), cart);
-
         return "NEW_ORDER_PLACED was published to Kafka";
     }
 }
