@@ -1,5 +1,6 @@
 package com.example.customerservice.service;
 
+import com.example.customerservice.model.dto.CartDTO;
 import com.example.customerservice.model.entity.Cart;
 import com.example.customerservice.model.enums.Topic;
 import com.example.customerservice.repository.CartRepository;
@@ -19,7 +20,9 @@ public class KafkaService {
     public String sendCart(int customerId, int restaurantId) {
         Cart cart = cartRepository.findByCustomerIdAndRestaurantId(customerId, restaurantId);
 
-        kafkaTemplate.send(Topic.NEW_ORDER_PLACED.toString(), cart);
+        CartDTO cartDTO = new CartDTO(cart);
+
+        kafkaTemplate.send(Topic.NEW_ORDER_PLACED.name(), cartDTO);
         return "NEW_ORDER_PLACED was published to Kafka";
     }
 }
