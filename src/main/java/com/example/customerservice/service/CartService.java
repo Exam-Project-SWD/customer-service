@@ -26,7 +26,7 @@ public class CartService {
 
         int totalPrice = 0;
         for(CartItem item: cart.getItems()) {
-            Optional<Item> newItem = itemRepository.findById(item.getId());
+            Optional<Item> newItem = itemRepository.findById(item.getMenuItemId());
             double price = newItem.get().getPrice();
             totalPrice += (price * item.getQuantity());
         }
