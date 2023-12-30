@@ -48,4 +48,10 @@ public class CartService {
     private Cart findCartForCustomer(Cart cart) {
         return cartRepository.findById(cart.getCustomerId()).orElseGet(() -> cartRepository.save(cart));
     }
+
+    public CartDTO showMyCart(int id) {
+        Optional<Cart> cart = cartRepository.findById(id);
+
+        return new CartDTO(cart.get());
+    }
 }

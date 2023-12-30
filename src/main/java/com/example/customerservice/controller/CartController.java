@@ -33,6 +33,11 @@ public class CartController {
         return ResponseEntity.ok(cartService.addItemToCart(id, cart));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<CartDTO> showMyCart(@PathVariable("id") int id) {
+        return ResponseEntity.ok(cartService.showMyCart(id));
+    }
+
     @GetMapping("/checkout")
     public ResponseEntity<String> payCart(@RequestParam("customerId") int customerId, @RequestParam("restaurantId") int restaurantId) {
         cartService.payment(customerId, restaurantId);
