@@ -14,9 +14,11 @@ import java.util.List;
 public class CartDTO {
     private int customerId;
     private int restaurantId;
+    @Builder.Default
     private List<CartItemDTO> items = new ArrayList<>();
     private double totalPrice;
     private boolean withDelivery;
+    private AddressDTO deliveryAddress;
 
     public CartDTO(Cart cart) {
         this.customerId = cart.getCustomerId();
