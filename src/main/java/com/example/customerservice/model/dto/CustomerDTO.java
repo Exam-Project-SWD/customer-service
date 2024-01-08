@@ -3,14 +3,13 @@ package com.example.customerservice.model.dto;
 import com.example.customerservice.model.entity.Customer;
 import lombok.*;
 
-import java.util.List;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Builder
 public class CustomerDTO {
+    private int id;
     private String firstName;
     private String lastName;
     private String email;
@@ -19,6 +18,7 @@ public class CustomerDTO {
     private int addressId;
 
     public CustomerDTO(Customer customer) {
+        this.id = customer.getId();
         this.firstName = customer.getFirstName();
         this.lastName = customer.getLastName();
         this.email = customer.getEmail();

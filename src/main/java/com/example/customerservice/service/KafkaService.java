@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class KafkaService {
     private final KafkaTemplate<String, Object> kafkaTemplate;
+    private final KafkaTemplate<String, Integer> kafkaTemplateInt;
     private final CartRepository cartRepository;
     private final CustomerService customerService;
     private final AddressService addressService;
@@ -30,5 +31,13 @@ public class KafkaService {
 
         kafkaTemplate.send(Topic.NEW_ORDER_PLACED.name(), cartDTO);
         return "NEW_ORDER_PLACED was published to Kafka";
+    }
+
+    public void sendChangedCustomer(CustomerDTO customerDTO) {
+        kafkaTemplate.send(Topic.CHANGED_CUSTOMER.name(), customerDTO);
+    }
+
+    public void sendDeletedCustomer(int customerId) {
+        kafkaTemplateInt.send(Topic.DELETED_CUSTOMER.name(), customerId);
     }
 }

@@ -53,6 +53,7 @@ public class CustomerService {
         Customer newCustomer = customerRepository.save(customer);
 
         return CustomerDTO.builder()
+                .id(newCustomer.getId())
                 .firstName(newCustomer.getFirstName())
                 .lastName(newCustomer.getLastName())
                 .email(newCustomer.getEmail())

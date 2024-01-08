@@ -12,4 +12,14 @@ public class KafkaTopicConfig {
     public NewTopic newOrderPlacedTopic() {
         return TopicBuilder.name(Topic.NEW_ORDER_PLACED.toString()).build();
     }
+
+    @Bean
+    public NewTopic changedCustomerTopic() {
+        return TopicBuilder.name(Topic.CHANGED_CUSTOMER.name()).build();
+    }
+
+    @Bean
+    public NewTopic deletedCustomerTopic() {
+        return TopicBuilder.name(Topic.DELETED_CUSTOMER.name()).build();
+    }
 }

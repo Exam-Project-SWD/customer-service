@@ -1,6 +1,7 @@
 package com.example.customerservice.config;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.common.serialization.IntegerSerializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -24,6 +25,8 @@ public class KafkaProducerConfig {
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
+        props.put(JsonSerializer.TYPE_MAPPINGS, "cart:com.example.customerservice.model.dto.CartDTO," +
+                                                "customer:com.example.customerservice.model.dto.CustomerDTO");
 
         return props;
     }
@@ -35,6 +38,18 @@ public class KafkaProducerConfig {
 
     @Bean
     public KafkaTemplate<String, Object> kafkaTemplate(ProducerFactory<String, Object> producerFactory) {
+        return new KafkaTemplate<>(producerFactory);
+    }
+
+    @Bean
+    public DefaultKafkaProducerFactory<String, Integer> producerFactoryInt() {
+        DefaultKafkaProducerFactory<String, Integer> factory = new DefaultKafkaProducerFactory<>(producerConfig());
+        factory.setValueSerializer(new IntegerSerializer());
+        return factory;
+    }
+
+    @Bean
+    public KafkaTemplate<String, Integer> kafkaTemplateInt(ProducerFactory<String, Integer> producerFactory) {
         return new KafkaTemplate<>(producerFactory);
     }
 }

@@ -84,6 +84,7 @@ public class CustomerControllerTest {
         // Mocking
         when(customerService.getCustomers())
                 .thenReturn(Arrays.asList(new CustomerDTO(
+                        1,
                         "mathias",
                         "jensen",
                         "mj@gmail.com",
@@ -104,6 +105,7 @@ public class CustomerControllerTest {
         // Mocking
         when(customerService.getCustomerById(anyInt()))
                 .thenReturn(new CustomerDTO(
+                        1,
                         "mathias",
                         "jensen",
                         "mj@gmail.com",
@@ -124,6 +126,7 @@ public class CustomerControllerTest {
         // Mocking
         when(customerService.updateCustomer(anyInt(), any(Customer.class)))
                 .thenReturn(new CustomerDTO(
+                        1,
                         "mathias",
                         "jensen",
                         "mj@gmail.com",

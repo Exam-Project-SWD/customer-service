@@ -2,13 +2,10 @@ package com.example.customerservice.controller;
 
 import com.example.customerservice.model.CustomerRegistrationRequest;
 import com.example.customerservice.model.LoginRequest;
-import com.example.customerservice.model.dto.CartDTO;
 import com.example.customerservice.model.dto.CustomerDTO;
-import com.example.customerservice.model.entity.Cart;
 import com.example.customerservice.model.entity.Customer;
-import com.example.customerservice.service.CartService;
 import com.example.customerservice.service.CustomerService;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.example.customerservice.service.KafkaService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -30,10 +27,13 @@ public class CustomerController {
     private static final Logger LOGGER = LoggerFactory.getLogger(Authentication.class);
 
     private final CustomerService customerService;
+    private final KafkaService kafkaService;
 
     @PostMapping("/registration")
     public ResponseEntity<CustomerDTO> registerCustomer(@RequestBody CustomerRegistrationRequest request) {
-        return ResponseEntity.ok(customerService.registerCustomer(request));
+        CustomerDTO customerDTO = customerService.registerCustomer(request);
+        kafkaService.sendChangedCustomer(customerDTO);
+        return ResponseEntity.ok(customerDTO);
     }
 
     @PostMapping("/login")
@@ -55,11 +55,15 @@ public class CustomerController {
 
     @PutMapping("/{id}")
     public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable(value = "id") int id, @RequestBody Customer customer) {
-        return ResponseEntity.ok(customerService.updateCustomer(id, customer));
+        CustomerDTO customerDTO = customerService.updateCustomer(id, customer);
+        kafkaService.sendChangedCustomer(customerDTO);
+        return ResponseEntity.ok(customerDTO);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, Boolean>> deleteCustomer(@PathVariable(value = "id") int id) {
-        return ResponseEntity.ok(customerService.deleteCustomer(id));
+        Map<String, Boolean> response = customerService.deleteCustomer(id);
+        kafkaService.sendDeletedCustomer(id);
+        return ResponseEntity.ok(response);
     }
 }
